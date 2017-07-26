@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1"/>
+<title>Halo</title>
+</head>
+<body>
+	<form name="f" th:action="@{/logout}" method="post">
+		<input type="submit" value="Logout"/>
+	</form>
+
+	<h1>Halo Spring Boot</h1>
+	<h2>Waktu saat ini : <span th:text="${waktu}">waktu</span></h2>
+	 <h3>Pesan : <span th:text="*{pesan}?:''">halo</span></h3> 
+
+</body>
+</html>

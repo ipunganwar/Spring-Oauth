@@ -9,8 +9,8 @@ Artifact      : demo-spring-oauth
 dependencies  : Web, Thymeleaf yang lain menyusul
 Java Version  : 1.8
 ```
--Ekstrak, lalu import project ke eclipse
--Buat class HalloController didalam package com.ipung.training.oauth.controller
+- Ekstrak, lalu import project ke eclipse
+- Buat class HalloController didalam package com.ipung.training.oauth.controller
 ```
 @Controller
 public class HalloController {
@@ -21,7 +21,7 @@ public class HalloController {
 	}
 }
 ```
-- buat file `halo.html` didalam `src/main/resources/templates` , secara default Thymeleaf mencari source html dari package tsb.
+- buat file `halo.html` didalam `src/main/resources/templates` , secara default Thymeleaf mencari source html dari package tsb
 ```
 <body>
 	<h1>Halo Spring Boot</h1>
@@ -91,12 +91,13 @@ tinggal disesuaikan,
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 ```
-**Note : **
+** Note : **
 	* untuk file css, letakan didalam `src/main/resources/static/css `
 	* didalam label html jangan lupa untuk menambahkan `name="username"` dan `name="password"`, karena KonfigurasiSecurity membaca variabel tsb.
 - tambahkan method HttpSecurity, jika file `login.html` tidak terbaca.
-`package com.ipung.training.oauth.config`;
 ```
+package com.ipung.training.oauth.config;
+
 @Configuration
 public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
 
@@ -157,7 +158,7 @@ spring.thymeleaf.cache=false
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 ```
-- tambahkan settingan konfigurasi ke `application.properties`
+- tambahkan settingan konfigurasi database di `application.properties` .
 ```
 spring.datasource.url=jdbc:mysql://localhost:3306/oauth?useSSL=false
 spring.datasource.username=root
@@ -165,7 +166,37 @@ spring.datasource.password=123456
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 ```
 - buat database `oauth`
-- untuk schema tabel telah di tentukan oleh Spring, bisa merujuk ke https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#appendix-schema
-
+- untuk schema tabel untuk security telah di tentukan oleh Spring, bisa merujuk ke https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#appendix-schema
 - buat folder `src/main/sql` dan buat file `skema-security-sql.sql`, ini hanya untuk dokumentasi pribadi saja. Optional.
+- ubah settingan di class `KonfigurasiSecurity.java` method `configure(AuthenticationManagerBuilder)` untuk membaca source ke database
+```
+package com.ipung.training.oauth.config;
 
+@Configuration
+public class KonfigurasiSecurity extends WebSecurityConfigurerAdapter {
+	
+	@Autowired
+	private DataSource ds;
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth)
+			throws Exception {
+		auth
+		.jdbcAuthentication()
+		.dataSource(ds)
+		.usersByUsernameQuery("select username, password, "
+				+ "active as enable from s_users where username=?")
+		.authoritiesByUsernameQuery("select u.username, p.user_role from s_users u "
+				+ "inner join s_permisions p on u.id = p.id_users "
+				+ "where u.username=?");
+	}
+```
+** Note ** 
+	* sesuai dengan shema tabel default Spring, method ini memanggil 2 tabel, yaitu `tabel_username = .usersByUsernameQuery` dan 
+	`tabel_authorities = .authoritiesByUsernameQuery`.
+- tambahkan depedency mysql ke `pom.xml`
+```
+	<dependency>
+		<groupId>mysql</groupId>
+		<artifactId>mysql-connector-java</artifactId>
+	</dependency>
+```

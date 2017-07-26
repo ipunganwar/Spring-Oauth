@@ -1,14 +1,14 @@
 # Spring-Oauth
-##Spring Security dengan Oauth
+## Spring Security dengan Oauth
 - generate project, go to https://start.spring.io/
 - Generate Maven Project with Java and Spring Boot 1.5.4
-'''
+```
 Project Metadata
 Group         : com.ipung.training.oauth
 Artifact      : demo-spring-oauth
 dependencies  : Web, Thymeleaf yang lain menyusul
 Java Version  : 1.8
-'''
+```
 Ekstrak, lalu import project ke eclipse
 
 Buat class HalloController didalam package com.ipung.training.oauth.controller

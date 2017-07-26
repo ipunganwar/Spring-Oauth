@@ -1,6 +1,6 @@
 # Spring-Oauth
 ## Spring Security dengan Oauth
-- generate project, go to https://start.spring.io/
+- generate project, go to [start.spring.io](https://start.spring.io/).
 - Generate Maven Project with Java and Spring Boot 1.5.4
 ```
 Project Metadata
@@ -9,9 +9,9 @@ Artifact      : demo-spring-oauth
 dependencies  : Web, Thymeleaf yang lain menyusul
 Java Version  : 1.8
 ```
-Ekstrak, lalu import project ke eclipse
-
-Buat class HalloController didalam package com.ipung.training.oauth.controller
+-Ekstrak, lalu import project ke eclipse
+-Buat class HalloController didalam package com.ipung.training.oauth.controller
+```
 @Controller
 public class HalloController {
 
@@ -20,7 +20,7 @@ public class HalloController {
 		m.addAttribute("waktu", new Date());
 	}
 }
-
+```
 buat file halo.html didalam src/main/resources/templates, secara default Thymeleaf mencari source html dari package tsb.
 <body>
 	<h1>Halo Spring Boot</h1>

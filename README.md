@@ -1,5 +1,5 @@
 # Spring-Oauth
-## Spring Security dengan Oauth
+## Spring Security Dasar
 - generate project, go to [start.spring.io](https://start.spring.io/).
 - Generate Maven Project with Java and Spring Boot 1.5.4
 ```
@@ -43,6 +43,7 @@ public class HalloController {
  password = di generate di console.
  basic auth tidak memiliki logout.
  ```
+ ### Konfigurasi Security dengan hardcode
 - buat class KonfigurasiSecurity di dalam package package `com.ipung.training.oauth.config` .
 ```
 @Configuration
@@ -150,7 +151,7 @@ spring.thymeleaf.cache=false
   ...
 </body>
 ```
-## Konfigurasi Security melalui database
+## Konfigurasi Security dengan database
 - tambahkan depedency ke pom.xml
 ```
 		<dependency>

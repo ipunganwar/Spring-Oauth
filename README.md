@@ -43,7 +43,7 @@ public class HalloController {
  password = di generate di console.
  basic auth tidak memiliki logout.
  ```
- ### Konfigurasi Security dengan hardcode
+ ## Konfigurasi Security dengan hardcode
 - buat class KonfigurasiSecurity di dalam package package `com.ipung.training.oauth.config` .
 ```
 @Configuration
